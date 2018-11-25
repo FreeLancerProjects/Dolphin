@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="3dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="19sp"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:text="@string/evaluation"
+            />
+
+    </android.support.v7.widget.CardView>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        >
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/sel_color"
+            android:layout_marginBottom="8dp"
+
+            />
+        <ImageView
+            android:id="@+id/image_logo"
+            android:layout_width="150dp"
+            android:layout_height="120dp"
+            android:src="@drawable/logo"
+            android:visibility="gone"
+            />
+    </FrameLayout>
+
+
+    <com.iarcuschin.simpleratingbar.SimpleRatingBar
+        android:id="@+id/rate_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        app:srb_starBorderWidth="4"
+        app:srb_starSize="30dp"
+        app:srb_isIndicator="true"
+        app:srb_stepSize=".5"
+        app:srb_numberOfStars="5"
+        android:layout_gravity="center_horizontal"
+        />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:weightSum="3"
+        android:orientation="horizontal"
+        >
+        <RadioButton
+            android:id="@+id/rb_bad"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:text="@string/bad"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:button="@drawable/rb_bg"
+
+            />
+        <RadioButton
+            android:id="@+id/rb_moderate"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:text="@string/moderate"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:button="@drawable/rb_bg"
+
+            />
+        <RadioButton
+            android:id="@+id/rb_perfect"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="18sp"
+            android:text="@string/perfect"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:button="@drawable/rb_bg"
+
+            />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/edt_note"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ll_prof_bg"
+        android:gravity="center_vertical"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:hint="@string/note"
+        android:textColorHint="@color/colorPrimary"
+        android:visibility="gone"
+        />
+    <Button
+        android:id="@+id/btn_rate"
+        android:layout_width="150dp"
+        android:layout_height="30dp"
+        android:background="@drawable/btn_evaluate"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/sel_color"
+        android:text="@string/rating"
+        android:visibility="invisible"
+        android:layout_marginBottom="30dp"
+        />
+</LinearLayout>

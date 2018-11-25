@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray1"
+
+    >
+
+    <FrameLayout
+        android:id="@+id/fragment_home_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_above="@id/ah_bottomNav"
+        android:background="@color/gray1"
+        >
+
+    </FrameLayout>
+    <com.aurelhubert.ahbottomnavigation.AHBottomNavigation
+        android:id="@+id/ah_bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        >
+
+    </com.aurelhubert.ahbottomnavigation.AHBottomNavigation>
+</RelativeLayout>

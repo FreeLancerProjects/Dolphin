@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#235784</color>
+    <color name="colorPrimaryDark">#235784</color>
+    <color name="colorAccent">#235784</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="btn_color">#00aaeb</color>
+    <color name="btn_press_color">#038cc0</color>
+    <color name="btn_press2_color">#b1dfe5</color>
+    <color name="btn_press3_color">#366fa0</color>
+    <color name="transparent">#00000000</color>
+    <color name="txt_color">#bcdbdf</color>
+    <color name="toolbar_color">#bcdbdf</color>
+    <color name="edt_contact">#d3dde6</color>
+    <color name="sel_color">#f7aa00</color>
+    <color name="gray0">#fafafa</color>
+    <color name="gray1">#f5f5f5</color>
+    <color name="gray2">#e0e0e0</color>
+
+    <color name="bottom_bav_inactive_color">#0bb2ee</color>
+    <color name="prof_card_color_trans">#dcd0dfec</color>
+    <color name="prof_card_color">#d0dfec</color>
+    <color name="not_bg">#d4e7e9</color>
+
+
+
+</resources>
