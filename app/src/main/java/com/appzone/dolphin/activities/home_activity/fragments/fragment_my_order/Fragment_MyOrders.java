@@ -22,11 +22,6 @@ public class Fragment_MyOrders extends Fragment {
     private ViewPager pager;
     private TabViewPagerAdapter adapter;
     private HomeActivity homeActivity;
-    private Fragment_Member_New_Order fragment_member_new_order;
-    private Fragment_Member_Current_Order fragment_member_current_order;
-    private Fragment_Technical_New_Order fragment_technical_new_order;
-    private Fragment_Technical_Current_Order fragment_technical_current_order;
-    private Fragment_Technical_Previous_Order fragment_technical_previous_order;
     private double lat=0.0,lng=0.0;
     @Nullable
     @Override
@@ -49,15 +44,6 @@ public class Fragment_MyOrders extends Fragment {
 
         if (userModel.getUser_type().equals(Tags.USER_MEMBER))
         {
-            /*if (fragment_member_new_order==null)
-            {
-                fragment_member_new_order = Fragment_Member_New_Order.getInstance(userModel);
-            }
-
-            if (fragment_member_current_order==null)
-            {
-                fragment_member_current_order = Fragment_Member_Current_Order.getInstance(userModel);
-            }*/
             adapter.AddFragment(Fragment_Member_New_Order.getInstance(userModel));
             adapter.AddFragment(Fragment_Member_Current_Order.getInstance(userModel));
 
@@ -65,19 +51,7 @@ public class Fragment_MyOrders extends Fragment {
             adapter.AddTitle(getString(R.string.curr_order));
         }else if (userModel.getUser_type().equals(Tags.USER_TECHNICAL))
         {
-            /*if (fragment_technical_new_order==null)
-            {
-                fragment_technical_new_order = Fragment_Technical_New_Order.getInstance(userModel);
-            }
-            if (fragment_technical_current_order==null)
-            {
-                fragment_technical_current_order = Fragment_Technical_Current_Order.getInstance(userModel);
-            }
 
-            if (fragment_technical_previous_order==null)
-            {
-                fragment_technical_previous_order = Fragment_Technical_Previous_Order.getInstance(userModel);
-            }*/
             adapter.AddFragment(Fragment_Technical_New_Order.getInstance(userModel,lat,lng));
             adapter.AddFragment(Fragment_Technical_Current_Order.getInstance(userModel));
             adapter.AddFragment(Fragment_Technical_Previous_Order.getInstance(userModel));
@@ -93,6 +67,17 @@ public class Fragment_MyOrders extends Fragment {
 
 
 
+    }
+    public void UpdateTechnicalCurrentOrder()
+    {
+      Fragment_Technical_Current_Order fragment_technical_current_order = (Fragment_Technical_Current_Order) adapter.getItem(1);
+        fragment_technical_current_order.getCurrentOrder();
+
+    }
+    public void UpdateTechnicalPreviousOrder()
+    {
+        Fragment_Technical_Previous_Order fragment_technical_previous_order = (Fragment_Technical_Previous_Order) adapter.getItem(2);
+        fragment_technical_previous_order.getPreviousOrder();
     }
     public void setUserModel(UserModel userModel) {
         this.userModel = userModel;

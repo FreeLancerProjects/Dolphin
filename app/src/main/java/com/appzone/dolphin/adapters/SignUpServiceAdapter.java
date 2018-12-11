@@ -53,6 +53,7 @@ public class SignUpServiceAdapter extends RecyclerView.Adapter<SignUpServiceAdap
                 }else if (fragment instanceof Fragment_Profile)
                 {
                     Fragment_Profile fragment_profile = (Fragment_Profile) fragment;
+                    fragment_profile.setCountryItem(serviceModel);
                 }
             }
         });

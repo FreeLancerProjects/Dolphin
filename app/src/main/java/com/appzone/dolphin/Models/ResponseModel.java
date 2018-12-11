@@ -13,6 +13,7 @@ public class ResponseModel implements Serializable {
     private int success_read;
     private int success_movement;
     private int success_payment;
+    private int success_rest;
     private String order_step;
 
     public int getSuccess_contact() {
@@ -57,5 +58,9 @@ public class ResponseModel implements Serializable {
 
     public String getOrder_step() {
         return order_step;
+    }
+
+    public int getSuccess_rest() {
+        return success_rest;
     }
 }

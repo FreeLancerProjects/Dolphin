@@ -147,6 +147,14 @@
     <string name="newpass_req">كلمة المرور الجديدة مطلوبة</string>
     <string name="wrong_oldpass">كلمة المرور القديمة غير صحيحة</string>
     <string name="per_den">لايمكن الوصول للصور</string>
+    <string name="uphone_exist">تم التسجيل برقم الجوال من قبل</string>
+    <string name="confirm_reservation">تأكيد الحجز</string>
+    <string name="admin">الإدارة</string>
+    <string name="work_schedules">تم توزيع جداول العمل</string>
+    <string name="confirm_technical_arrive">تأكيد ميعاد وصول الفني</string>
+    <string name="Finished_add_evaluation">تم إنجاز العمل قم بتقييم الفني</string>
+    <string name="Evaluation_official">تقييم مسؤول الجودة</string>
+    <string name="no_user_phone">لا يوجد مستخدم يمتلك رقم الجوال هذا.</string>
 
     <string-array name="payment">
         <item>إختر</item>

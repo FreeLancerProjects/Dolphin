@@ -118,8 +118,10 @@ public class Fragment_Notifications extends Fragment implements DatePickerDialog
         }
 
     }
-    private void getTechnicalNotification(String user_id)
+    public void getTechnicalNotification(String user_id)
     {
+        Log.e("ghghg2","hjghgj2");
+
         Api.getService()
                 .getTechnicalNotification(user_id)
                 .enqueue(new Callback<List<TechnicalNotificationModel>>() {
@@ -155,8 +157,9 @@ public class Fragment_Notifications extends Fragment implements DatePickerDialog
                     }
                 });
     }
-    private void getClientNotification(String user_id)
+    public void getClientNotification(String user_id)
     {
+        Log.e("ghghg","hjghgj");
         Api.getService()
                 .getClientNotifications(user_id)
                 .enqueue(new Callback<List<ClientNotificationModel>>() {

@@ -300,6 +300,8 @@ public class BookTechnicalActivity extends AppCompatActivity {
     }
 
     private void Book_Video_Sound(String order_type, String order_voice_path, String order_video_path, String order_hours, String order_details, String order_date, String order_address, double order_address_lat, double order_address_long) {
+        final ProgressDialog dialog  = Common.createProgressDialog(this,getString(R.string.bokng));
+        dialog.show();
 
         RequestBody order_type_part = Common.getRequestBodyText(order_type);
         MultipartBody.Part voice_part = Common.getMultiPartVoice(order_voice_path,"order_voice");
@@ -312,8 +314,7 @@ public class BookTechnicalActivity extends AppCompatActivity {
         RequestBody lng_part = Common.getRequestBodyText(String.valueOf(order_address_long));
 
 
-        final ProgressDialog dialog  = Common.createProgressDialog(this,getString(R.string.bokng));
-        dialog.show();
+
 
         Api.getService()
                 .book_video_sound(userModel.getUser_id(),serviceModel.getId_services(),order_type_part,hour_part,details_part,date_part,address_part,lat_part,lng_part,voice_part,video_part)
@@ -349,7 +350,8 @@ public class BookTechnicalActivity extends AppCompatActivity {
     }
 
     private void Book_Image_Video(String order_type, String order_image_path, String order_video_path, String order_hours, String order_details, String order_date, String order_address, double order_address_lat, double order_address_long) {
-
+        final ProgressDialog dialog  = Common.createProgressDialog(this,getString(R.string.bokng));
+        dialog.show();
         RequestBody order_type_part = Common.getRequestBodyText(order_type);
         MultipartBody.Part image_part = Common.getMultiPartImageFromPath(order_image_path,"order_image");
         MultipartBody.Part video_part = Common.getMultiPartVideoFromPath(order_video_path,"order_video");
@@ -361,8 +363,7 @@ public class BookTechnicalActivity extends AppCompatActivity {
         RequestBody lng_part = Common.getRequestBodyText(String.valueOf(order_address_long));
 
 
-        final ProgressDialog dialog  = Common.createProgressDialog(this,getString(R.string.bokng));
-        dialog.show();
+
 
         Api.getService()
                 .book_image_video(userModel.getUser_id(),serviceModel.getId_services(),order_type_part,hour_part,details_part,date_part,address_part,lat_part,lng_part,image_part,video_part)
@@ -398,6 +399,9 @@ public class BookTechnicalActivity extends AppCompatActivity {
     }
 
     private void Book_Image_Sound(String order_type, String order_image_path, String order_voice_path, String order_hours, String order_details, String order_date, String order_address, double order_address_lat, double order_address_long) {
+        final ProgressDialog dialog  = Common.createProgressDialog(this,getString(R.string.bokng));
+        dialog.show();
+
         RequestBody order_type_part = Common.getRequestBodyText(order_type);
         MultipartBody.Part image_part = Common.getMultiPartImageFromPath(order_image_path,"order_image");
         MultipartBody.Part voice_part = Common.getMultiPartVoice(order_voice_path,"order_voice");
@@ -409,8 +413,6 @@ public class BookTechnicalActivity extends AppCompatActivity {
         RequestBody lng_part = Common.getRequestBodyText(String.valueOf(order_address_long));
 
 
-        final ProgressDialog dialog  = Common.createProgressDialog(this,getString(R.string.bokng));
-        dialog.show();
 
         Api.getService()
                 .book_image_sound(userModel.getUser_id(),serviceModel.getId_services(),order_type_part,hour_part,details_part,date_part,address_part,lat_part,lng_part,image_part,voice_part)
@@ -446,6 +448,10 @@ public class BookTechnicalActivity extends AppCompatActivity {
     }
 
     private void Book_With_Video_Only(String order_type, String order_video_path, String order_hours, String order_details, String order_date, String order_address, double order_address_lat, double order_address_long) {
+
+        final ProgressDialog dialog  = Common.createProgressDialog(this,getString(R.string.bokng));
+        dialog.show();
+
         RequestBody order_type_part = Common.getRequestBodyText(order_type);
         MultipartBody.Part video_part = Common.getMultiPartVideoFromPath(order_video_path,"order_video");
         RequestBody hour_part = Common.getRequestBodyText(order_hours);
@@ -456,8 +462,7 @@ public class BookTechnicalActivity extends AppCompatActivity {
         RequestBody lng_part = Common.getRequestBodyText(String.valueOf(order_address_long));
 
 
-        final ProgressDialog dialog  = Common.createProgressDialog(this,getString(R.string.bokng));
-        dialog.show();
+
 
         Api.getService()
                 .book_video(userModel.getUser_id(),serviceModel.getId_services(),order_type_part,hour_part,details_part,date_part,address_part,lat_part,lng_part,video_part)
@@ -494,6 +499,11 @@ public class BookTechnicalActivity extends AppCompatActivity {
     }
 
     private void Book_With_Voice_Only(String order_type, String order_voice_path, String order_hours, String order_details, String order_date, String order_address, double order_address_lat, double order_address_long) {
+        final ProgressDialog dialog  = Common.createProgressDialog(this,getString(R.string.bokng));
+        dialog.show();
+        Log.e("sss","ddd14444");
+
+
         RequestBody order_type_part = Common.getRequestBodyText(order_type);
         MultipartBody.Part voice_part = Common.getMultiPartVoice(order_voice_path,"order_voice");
         RequestBody hour_part = Common.getRequestBodyText(order_hours);
@@ -504,8 +514,7 @@ public class BookTechnicalActivity extends AppCompatActivity {
         RequestBody lng_part = Common.getRequestBodyText(String.valueOf(order_address_long));
 
 
-        final ProgressDialog dialog  = Common.createProgressDialog(this,getString(R.string.bokng));
-        dialog.show();
+
 
         Api.getService()
                 .book_sound(userModel.getUser_id(),serviceModel.getId_services(),order_type_part,hour_part,details_part,date_part,address_part,lat_part,lng_part,voice_part)
@@ -542,6 +551,8 @@ public class BookTechnicalActivity extends AppCompatActivity {
     }
 
     private void Book_With_Image_Only(String order_type, String order_image_path, String order_hours, String order_details, String order_date, String order_address, double order_address_lat, double order_address_long) {
+        final ProgressDialog dialog  = Common.createProgressDialog(this,getString(R.string.bokng));
+        dialog.show();
 
         RequestBody order_type_part = Common.getRequestBodyText(order_type);
         MultipartBody.Part image_part = Common.getMultiPartImageFromPath(order_image_path,"order_image");
@@ -553,8 +564,7 @@ public class BookTechnicalActivity extends AppCompatActivity {
         RequestBody lng_part = Common.getRequestBodyText(String.valueOf(order_address_long));
 
 
-        final ProgressDialog dialog  = Common.createProgressDialog(this,getString(R.string.bokng));
-        dialog.show();
+
 
         Api.getService()
                 .book_image(userModel.getUser_id(),serviceModel.getId_services(),order_type_part,hour_part,details_part,date_part,address_part,lat_part,lng_part,image_part)
@@ -592,6 +602,9 @@ public class BookTechnicalActivity extends AppCompatActivity {
 
     private void BookWithoutMedia(String order_type, String order_hours, String order_details, String order_date, String order_address, double order_address_lat, double order_address_long) {
 
+        final ProgressDialog dialog  = Common.createProgressDialog(this,getString(R.string.bokng));
+        dialog.show();
+
         RequestBody order_type_part = Common.getRequestBodyText(order_type);
         RequestBody hour_part = Common.getRequestBodyText(order_hours);
         RequestBody details_part = Common.getRequestBodyText(order_details);
@@ -601,8 +614,6 @@ public class BookTechnicalActivity extends AppCompatActivity {
         RequestBody lng_part = Common.getRequestBodyText(String.valueOf(order_address_long));
 
 
-        final ProgressDialog dialog  = Common.createProgressDialog(this,getString(R.string.bokng));
-        dialog.show();
 
         Api.getService()
                 .book(userModel.getUser_id(),serviceModel.getId_services(),order_type_part,hour_part,details_part,date_part,address_part,lat_part,lng_part)
@@ -642,6 +653,8 @@ public class BookTechnicalActivity extends AppCompatActivity {
     }
 
     private void Book_Image_Video_Sound(String order_type, String order_image_path, String order_voice_path, String order_video_path, String order_hours, String order_details, String order_date, String order_address, double order_address_lat, double order_address_long) {
+        final ProgressDialog dialog  = Common.createProgressDialog(this,getString(R.string.bokng));
+        dialog.show();
 
         RequestBody order_type_part = Common.getRequestBodyText(order_type);
         MultipartBody.Part image_part = Common.getMultiPartImageFromPath(order_image_path,"order_image");
@@ -654,9 +667,6 @@ public class BookTechnicalActivity extends AppCompatActivity {
         RequestBody lat_part = Common.getRequestBodyText(String.valueOf(order_address_lat));
         RequestBody lng_part = Common.getRequestBodyText(String.valueOf(order_address_long));
 
-
-        final ProgressDialog dialog  = Common.createProgressDialog(this,getString(R.string.bokng));
-        dialog.show();
 
         Api.getService()
                 .book_image_sound_video(userModel.getUser_id(),serviceModel.getId_services(),order_type_part,hour_part,details_part,date_part,address_part,lat_part,lng_part,image_part,voice_part,video_part)

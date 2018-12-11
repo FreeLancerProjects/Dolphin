@@ -418,16 +418,16 @@ public class Fragment_Bill extends Fragment {
 
     private void updateUI(TechnicalOrderModel technicalOrderModel) {
 
-        getOrder_State(technicalOrderModel.getId_order());
+        getOrder_State();
     }
 
-    private void getOrder_State(final String id_order) {
+    public void getOrder_State() {
 
         final ProgressDialog dialog = Common.createProgressDialog(getActivity(),getString(R.string.wait));
         dialog.show();
 
         Api.getService()
-                .getOrderState(userModel.getUser_id(),id_order)
+                .getOrderState(userModel.getUser_id(),technicalOrderModel.getId_order())
                 .enqueue(new Callback<OrderStateModel>() {
                     @Override
                     public void onResponse(Call<OrderStateModel> call, Response<OrderStateModel> response) {
@@ -438,7 +438,7 @@ public class Fragment_Bill extends Fragment {
                             if (response.body().getOrder_payment()==1)
                             {
 
-                                getBill(userModel.getUser_id(),id_order);
+                                getBill(userModel.getUser_id(),technicalOrderModel.getId_order());
                                 Log.e("bill state",response.body().getOrder_step()+"state");
                                 Log.e("iddddddddddd2",technicalOrderModel.getId_order());
 

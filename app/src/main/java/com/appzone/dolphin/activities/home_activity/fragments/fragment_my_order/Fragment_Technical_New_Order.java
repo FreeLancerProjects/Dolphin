@@ -22,6 +22,7 @@ import com.appzone.dolphin.Models.ResponseModel;
 import com.appzone.dolphin.Models.TechnicalOrderModel;
 import com.appzone.dolphin.Models.UserModel;
 import com.appzone.dolphin.R;
+import com.appzone.dolphin.activities.home_activity.activity.HomeActivity;
 import com.appzone.dolphin.activities.technical_order_details_activity.activity.TechnicalOrderDetailsActivity;
 import com.appzone.dolphin.adapters.TechnicalNewOrderAdapter;
 import com.appzone.dolphin.remote.Api;
@@ -52,6 +53,8 @@ public class Fragment_Technical_New_Order extends Fragment {
     private Shimmer shimmer;
     private ShimmerTextView shimmer_tv;
     private List<TechnicalOrderModel> technicalOrderModelList;
+    private HomeActivity homeActivity;
+
 
     @Nullable
     @Override
@@ -72,6 +75,7 @@ public class Fragment_Technical_New_Order extends Fragment {
         return fragment_current_order;
     }
     private void initView(View view) {
+        homeActivity = (HomeActivity) getActivity();
         technicalOrderModelList = new ArrayList<>();
         ll_no_order = view.findViewById(R.id.ll_no_order);
         ll_start = view.findViewById(R.id.ll_start);
@@ -190,6 +194,7 @@ public class Fragment_Technical_New_Order extends Fragment {
 
                             if (response.body().getSuccess_movement()==1)
                             {
+                                homeActivity.UpdateTechnicalCurrentNotification();
                                 ll_start.setVisibility(View.GONE);
                                 technicalOrderModelList.clear();
                                 adapter.notifyDataSetChanged();

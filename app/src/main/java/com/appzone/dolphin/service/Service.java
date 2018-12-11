@@ -281,8 +281,8 @@ public interface Service {
     @POST("ApiTechnical/MyMovement/{user_id}")
     Call<ResponseModel> startWork(@Path("user_id") String user_id,
                                   @Field("movement_type")String movement_type,
-                                  @Field("technical_google_long")double technical_google_long,
-                                  @Field("technical_google_lat")double technical_google_lat
+                                  @Field("technical_google_lat")double technical_google_lat,
+                                  @Field("technical_google_long")double technical_google_long
 
                                   );
 
@@ -314,8 +314,8 @@ public interface Service {
     @POST("ApiTechnical/MyMovement/{user_id}")
     Call<ResponseModel> arrival(@Path("user_id") String user_id,
                                 @Field("movement_type") String movement_type,
-                                @Field("technical_google_long") String technical_google_long,
                                 @Field("technical_google_lat") String technical_google_lat,
+                                @Field("technical_google_long") String technical_google_long,
                                 @Field("order_id_fk") String order_id_fk,
                                 @Field("client_id_fk") String client_id_fk
 
@@ -330,6 +330,7 @@ public interface Service {
                                        @Part("user_full_name") RequestBody user_full_name,
                                        @Part("user_city") RequestBody user_city,
                                        @Part("user_address") RequestBody user_address,
+                                       @Part("user_specialization_id_fk") RequestBody user_specialization_id_fk,
                                        @Part MultipartBody.Part user_photo
     );
 
@@ -341,8 +342,10 @@ public interface Service {
                                       @Part("user_email") RequestBody user_email,
                                       @Part("user_full_name") RequestBody user_full_name,
                                       @Part("user_city") RequestBody user_city,
-                                      @Part("user_address") RequestBody user_address
-    );
+                                      @Part("user_address") RequestBody user_address,
+                                      @Part("user_specialization_id_fk") RequestBody user_specialization_id_fk
+
+                                      );
 
 
     @FormUrlEncoded
@@ -352,5 +355,10 @@ public interface Service {
                                    @Field("user_new_pass") String user_new_pass
     );
 
+    @FormUrlEncoded
+    @POST("AppUser/RestMyPass")
+    Call<ResponseModel> resetPassword(@Field("user_email") String user_email,
+                                      @Field("user_phone") String user_phone
+                                      );
 
 }

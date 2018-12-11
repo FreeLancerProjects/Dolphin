@@ -162,6 +162,7 @@ public class Fragment_Date extends Fragment implements DatePickerDialog.OnDateSe
     {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
+        calendar.add(Calendar.DAY_OF_MONTH,1);
         datePickerDialog = DatePickerDialog.newInstance(this,calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.setLocale(Locale.ENGLISH);
         datePickerDialog.setVersion(DatePickerDialog.Version.VERSION_2);

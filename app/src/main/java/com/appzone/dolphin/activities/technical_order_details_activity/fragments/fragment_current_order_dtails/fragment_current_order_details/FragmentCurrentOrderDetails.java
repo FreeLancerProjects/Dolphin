@@ -65,4 +65,10 @@ public class FragmentCurrentOrderDetails extends Fragment{
         pager.setAdapter(adapter);
 
     }
+
+    public void UpdateFrgmentBill()
+    {
+        Fragment_Bill fragment_bill = (Fragment_Bill) adapter.getItem(1);
+        fragment_bill.getOrder_State();
+    }
 }

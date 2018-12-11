@@ -166,9 +166,6 @@ public class SignInActivity extends AppCompatActivity {
                                 Intent intent = new Intent(SignInActivity.this, HomeActivity.class);
                                 startActivity(intent);
                                 finish();
-                            }else if (response.body().getSuccess_login()==2)
-                            {
-                                Common.CreateUserNotSignInAlertDialog(SignInActivity.this,getString(R.string.account_open));
                             }else
                                 {
                                     Toast.makeText(SignInActivity.this,R.string.something, Toast.LENGTH_SHORT).show();

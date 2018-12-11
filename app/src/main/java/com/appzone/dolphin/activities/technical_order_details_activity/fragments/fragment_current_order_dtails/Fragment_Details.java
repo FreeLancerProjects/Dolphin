@@ -264,6 +264,7 @@ public class Fragment_Details extends Fragment implements GoogleApiClient.OnConn
                                 btn_continue.setVisibility(View.GONE);
                                 btn_stop.setVisibility(View.GONE);
                                 btn_finish.setVisibility(View.GONE);
+                                activity.UpdateFragmentBill();
 
                             }else
                                 {

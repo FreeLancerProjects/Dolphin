@@ -21,6 +21,7 @@ public class TechnicalOrderDetailsActivity extends AppCompatActivity {
     private ImageView image_back;
     private TechnicalOrderModel technicalOrderModel;
     private String type="";
+    private FragmentCurrentOrderDetails fragmentCurrentOrderDetails;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +64,8 @@ public class TechnicalOrderDetailsActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.technical_order_details_fragment_container, Fragment_New_Order_Details.getInstance(technicalOrderModel)).commit();
         }else if (type.equals("current"))
         {
-            getSupportFragmentManager().beginTransaction().replace(R.id.technical_order_details_fragment_container, FragmentCurrentOrderDetails.getInstance(technicalOrderModel)).commit();
+            fragmentCurrentOrderDetails = FragmentCurrentOrderDetails.getInstance(technicalOrderModel);
+            getSupportFragmentManager().beginTransaction().replace(R.id.technical_order_details_fragment_container, fragmentCurrentOrderDetails).commit();
 
         }
     }
@@ -97,5 +99,11 @@ public class TechnicalOrderDetailsActivity extends AppCompatActivity {
         }
     }
 
-
+    public void UpdateFragmentBill()
+    {
+        if (fragmentCurrentOrderDetails!=null)
+        {
+            fragmentCurrentOrderDetails.UpdateFrgmentBill();
+        }
+    }
 }

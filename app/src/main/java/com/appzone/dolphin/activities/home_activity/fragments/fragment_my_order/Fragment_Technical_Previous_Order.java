@@ -77,12 +77,12 @@ public class Fragment_Technical_Previous_Order extends Fragment {
     private void UpdateUI(UserModel userModel)
 
     {
-        getPreviousOrder(userModel.getUser_id());
+        getPreviousOrder();
     }
-    private void getPreviousOrder(String user_id)
+    public void getPreviousOrder()
     {
         Api.getService()
-                .getTechnicalPreviousOrder(user_id)
+                .getTechnicalPreviousOrder(userModel.getUser_id())
                 .enqueue(new Callback<List<TechnicalOrderModel>>() {
                     @Override
                     public void onResponse(Call<List<TechnicalOrderModel>> call, Response<List<TechnicalOrderModel>> response) {

@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.appzone.dolphin.Models.TechnicalOrderModel;
 import com.appzone.dolphin.Models.UserModel;
 import com.appzone.dolphin.R;
+import com.appzone.dolphin.activities.home_activity.activity.HomeActivity;
 import com.appzone.dolphin.activities.technical_order_details_activity.activity.TechnicalOrderDetailsActivity;
 import com.appzone.dolphin.adapters.TechnicalCurrentOrderAdapter;
 import com.appzone.dolphin.remote.Api;
@@ -43,6 +44,7 @@ public class Fragment_Technical_Current_Order extends Fragment {
     private List<TechnicalOrderModel> technicalOrderModelList;
     private final int req_code = 558;
     private int last_pos;
+    private HomeActivity homeActivity;
 
     @Nullable
     @Override
@@ -61,6 +63,7 @@ public class Fragment_Technical_Current_Order extends Fragment {
         return fragment_current_order;
     }
     private void initView(View view) {
+        homeActivity = (HomeActivity) getActivity();
         technicalOrderModelList = new ArrayList<>();
         ll_no_order = view.findViewById(R.id.ll_no_order);
         progBar = view.findViewById(R.id.progBar);
@@ -81,13 +84,13 @@ public class Fragment_Technical_Current_Order extends Fragment {
 
     private void UpdateUI(UserModel userModel) {
 
-        getCurrentOrder(userModel.getUser_id());
+        getCurrentOrder();
 
     }
 
-    private void getCurrentOrder(String user_id) {
+    public void getCurrentOrder() {
         Api.getService()
-                .getTechnicalCurrentOrder(user_id)
+                .getTechnicalCurrentOrder(userModel.getUser_id())
                 .enqueue(new Callback<List<TechnicalOrderModel>>() {
                     @Override
                     public void onResponse(Call<List<TechnicalOrderModel>> call, Response<List<TechnicalOrderModel>> response) {
@@ -138,6 +141,7 @@ public class Fragment_Technical_Current_Order extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==req_code&&resultCode== Activity.RESULT_OK&&data!=null)
         {
+            homeActivity.UpdateTechnicalPreviousNotification();
             technicalOrderModelList.remove(this.last_pos);
             adapter.notifyItemRemoved(last_pos);
             if (technicalOrderModelList.size()>0)

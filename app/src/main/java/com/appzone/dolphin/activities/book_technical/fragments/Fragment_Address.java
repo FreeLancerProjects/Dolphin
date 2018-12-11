@@ -409,6 +409,7 @@ public class Fragment_Address extends Fragment implements OnMapReadyCallback, Go
         {
             Uri uri = data.getData();
             String path = Common.getImagePath(getActivity(),uri);
+            Log.e("path",path);
             CreateAlertDialogFor_Image_Video_Sound(path,"sound");
         }
 

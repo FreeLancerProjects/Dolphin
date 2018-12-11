@@ -24,9 +24,9 @@ public class Tags {
     public static final String CLIENT_ORDER_EVALUATE_TECHNICAL="6";
     public static final String CLIENT_ORDER_EVALUATE_QUALITY_OFFICER="9";
 
-    public static final String RATE_BAD="1";
-    public static final String RATE_MODERATE="3";
-    public static final String RATE_PERFECT="2";
+    public static final String RATE_BAD="3";
+    public static final String RATE_MODERATE="2";
+    public static final String RATE_PERFECT="1";
 
     public static final String CONFIRM_ORDER="1";
     public static final String CANCEL_ORDER="2";

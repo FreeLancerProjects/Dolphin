@@ -115,7 +115,7 @@ public class Fragment_Profile extends Fragment {
         tv_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CheckPermission(img1_req_profile);
+                CheckPermission();
             }
         });
 
@@ -301,7 +301,7 @@ public class Fragment_Profile extends Fragment {
                     Toast.makeText(getActivity(),R.string.per_den, Toast.LENGTH_SHORT).show();
                 }else
                 {
-                    SelectImage(img1_req_profile);
+                    SelectImage();
 
 
                 }
@@ -309,22 +309,22 @@ public class Fragment_Profile extends Fragment {
         }
     }
 
-    private void CheckPermission(int req)
+    private void CheckPermission()
     {
+
         if (ContextCompat.checkSelfPermission(getActivity(),read_per)!= PackageManager.PERMISSION_GRANTED)
         {
             String [] perm = {read_per};
-            ActivityCompat.requestPermissions(getActivity(),perm,req);
+            ActivityCompat.requestPermissions(getActivity(),perm,read_req);
         }else
         {
-            if (req==read_req)
-            {
-                SelectImage(img1_req_profile);
 
-            }
+                SelectImage();
+
+
         }
     }
-    private void SelectImage(int img_req)
+    private void SelectImage()
     {
         Intent intent;
         if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.KITKAT)
@@ -340,7 +340,7 @@ public class Fragment_Profile extends Fragment {
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY,true);
         intent.setType("image/*");
-        getActivity().startActivityForResult(intent.createChooser(intent,"Select Image"),img_req);
+        getActivity().startActivityForResult(intent.createChooser(intent,"Select Image"),img1_req_profile);
 
     }
 
@@ -354,7 +354,6 @@ public class Fragment_Profile extends Fragment {
         final TextView tv_title = view.findViewById(R.id.tv_title);
         final EditText edt_update = view.findViewById(R.id.edt_update);
         final EditText edt_newPassword = view.findViewById(R.id.edt_newPassword);
-        //final PhoneInputLayout edt_check_phone = view.findViewById(R.id.edt_check_phone);
         Button btn_update = view.findViewById(R.id.btn_update);
         Button btn_close = view.findViewById(R.id.btn_close);
 
@@ -427,12 +426,12 @@ public class Fragment_Profile extends Fragment {
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updatedialog.dismiss();
                 if (type.equals(Tags.update_full_name))
                 {
                     String m_name = edt_update.getText().toString();
                     if (!TextUtils.isEmpty(m_name))
                     {
+                        updatedialog.dismiss();
                         edt_update.setError(null);
 
                         Common.CloseKeyBoard(getActivity(),edt_update);
@@ -450,6 +449,8 @@ public class Fragment_Profile extends Fragment {
                     String m_address = edt_update.getText().toString();
                     if (!TextUtils.isEmpty(m_address))
                     {
+                        updatedialog.dismiss();
+
                         edt_update.setError(null);
 
                         Common.CloseKeyBoard(getActivity(),edt_update);
@@ -465,6 +466,8 @@ public class Fragment_Profile extends Fragment {
                 else if (type.equals(Tags.update_phone))
                 {
 
+                    updatedialog.dismiss();
+
                     String m_phone = edt_update.getText().toString();
 
                     if (TextUtils.isEmpty(m_phone))
@@ -478,6 +481,8 @@ public class Fragment_Profile extends Fragment {
                     }
                     else
                     {
+                        updatedialog.dismiss();
+
                         Common.CloseKeyBoard(getActivity(),edt_update);
                         edt_update.setError(null);
                         update_phone(m_phone);
@@ -498,6 +503,8 @@ public class Fragment_Profile extends Fragment {
 
                     }else
                     {
+                        updatedialog.dismiss();
+
                         Common.CloseKeyBoard(getActivity(),edt_update);
 
                         edt_update.setError(null);
@@ -515,6 +522,8 @@ public class Fragment_Profile extends Fragment {
 
                     if (!TextUtils.isEmpty(m_oldPassword)&&!TextUtils.isEmpty(m_newPassword))
                     {
+                        updatedialog.dismiss();
+
                         Common.CloseKeyBoard(getActivity(),edt_update);
                         edt_update.setError(null);
                         edt_newPassword.setError(null);
@@ -563,7 +572,7 @@ public class Fragment_Profile extends Fragment {
     }
 
     public void setCountryItem(ServiceModel serviceModel) {
-
+        update_specialization(serviceModel.getId_services());
         serviceDialog.dismiss();
     }
 
@@ -575,13 +584,28 @@ public class Fragment_Profile extends Fragment {
         RequestBody name_part = Common.getRequestBodyText(userModel.getUser_full_name());
         RequestBody email_part = Common.getRequestBodyText(userModel.getUser_email());
         RequestBody phone_part = Common.getRequestBodyText(userModel.getUser_phone());
-        RequestBody country_part = Common.getRequestBodyText(userModel.getId_country());
-        RequestBody address_part = Common.getRequestBodyText(userModel.getUser_address());
-        RequestBody city_part = Common.getRequestBodyText(userModel.getUser_city());
+        RequestBody country_part=null,address_part=null,city_part=null,specialization_part=null;
+
+        if (userModel.getUser_type().equals(Tags.USER_MEMBER))
+        {
+            country_part = Common.getRequestBodyText(userModel.getId_country());
+            address_part = Common.getRequestBodyText(userModel.getUser_address());
+
+            city_part = Common.getRequestBodyText(userModel.getUser_city());
+            specialization_part = Common.getRequestBodyText("");
+
+        }else if (userModel.getUser_type().equals(Tags.USER_TECHNICAL))
+        {
+            country_part = Common.getRequestBodyText("");
+            address_part = Common.getRequestBodyText("");
+            city_part = Common.getRequestBodyText("");
+            specialization_part = Common.getRequestBodyText(userModel.getUser_specialization_id_fk());
+
+        }
         MultipartBody.Part image_part =Common.getMultiPart(getActivity(),uri,part_name);
 
         Api.getService()
-                .UpdateProfileImage(userModel.getUser_id(),phone_part,country_part,email_part,name_part,city_part,address_part,image_part)
+                .UpdateProfileImage(userModel.getUser_id(),phone_part,country_part,email_part,name_part,city_part,address_part,specialization_part,image_part)
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
@@ -619,19 +643,32 @@ public class Fragment_Profile extends Fragment {
     private void update_name(String newName)
     {
         Log.e("name",newName);
-
         RequestBody name_part = Common.getRequestBodyText(newName);
         RequestBody email_part = Common.getRequestBodyText(userModel.getUser_email());
         RequestBody phone_part = Common.getRequestBodyText(userModel.getUser_phone());
-        RequestBody country_part = Common.getRequestBodyText(userModel.getId_country());
-        RequestBody address_part = Common.getRequestBodyText(userModel.getUser_address());
+        RequestBody country_part=null,address_part=null,city_part=null,specialization_part=null;
 
-        RequestBody city_part = Common.getRequestBodyText(userModel.getUser_city());
+        if (userModel.getUser_type().equals(Tags.USER_MEMBER))
+        {
+            country_part = Common.getRequestBodyText(userModel.getId_country());
+            address_part = Common.getRequestBodyText(userModel.getUser_address());
+
+            city_part = Common.getRequestBodyText(userModel.getUser_city());
+            specialization_part = Common.getRequestBodyText("");
+
+        }else if (userModel.getUser_type().equals(Tags.USER_TECHNICAL))
+        {
+            country_part = Common.getRequestBodyText("");
+            address_part = Common.getRequestBodyText("");
+            city_part = Common.getRequestBodyText("");
+            specialization_part = Common.getRequestBodyText(userModel.getUser_specialization_id_fk());
+
+        }
 
         final ProgressDialog progressDialog = Common.createProgressDialog(getActivity(),getString(R.string.updtng));
         progressDialog.show();
 
-        Api.getService().UpdateProfileData(userModel.getUser_id(),phone_part,country_part,email_part,name_part,city_part,address_part)
+        Api.getService().UpdateProfileData(userModel.getUser_id(),phone_part,country_part,email_part,name_part,city_part,address_part,specialization_part)
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
@@ -671,14 +708,28 @@ public class Fragment_Profile extends Fragment {
         RequestBody name_part = Common.getRequestBodyText(userModel.getUser_full_name());
         RequestBody email_part = Common.getRequestBodyText(userModel.getUser_email());
         RequestBody phone_part = Common.getRequestBodyText(newPhone);
-        RequestBody country_part = Common.getRequestBodyText(userModel.getId_country());
-        RequestBody address_part = Common.getRequestBodyText(userModel.getUser_address());
-        RequestBody city_part = Common.getRequestBodyText(userModel.getUser_city());
+        RequestBody country_part=null,address_part=null,city_part=null,specialization_part=null;
 
+        if (userModel.getUser_type().equals(Tags.USER_MEMBER))
+        {
+            country_part = Common.getRequestBodyText(userModel.getId_country());
+            address_part = Common.getRequestBodyText(userModel.getUser_address());
+
+            city_part = Common.getRequestBodyText(userModel.getUser_city());
+            specialization_part = Common.getRequestBodyText("");
+
+        }else if (userModel.getUser_type().equals(Tags.USER_TECHNICAL))
+        {
+            country_part = Common.getRequestBodyText("");
+            address_part = Common.getRequestBodyText("");
+            city_part = Common.getRequestBodyText("");
+            specialization_part = Common.getRequestBodyText(userModel.getUser_specialization_id_fk());
+
+        }
         final ProgressDialog progressDialog = Common.createProgressDialog(getActivity(),getString(R.string.updtng));
         progressDialog.show();
 
-        Api.getService().UpdateProfileData(userModel.getUser_id(),phone_part,country_part,email_part,name_part,city_part,address_part)
+        Api.getService().UpdateProfileData(userModel.getUser_id(),phone_part,country_part,email_part,name_part,city_part,address_part,specialization_part)
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
@@ -717,14 +768,28 @@ public class Fragment_Profile extends Fragment {
         RequestBody name_part = Common.getRequestBodyText(userModel.getUser_full_name());
         RequestBody email_part = Common.getRequestBodyText(newEmail);
         RequestBody phone_part = Common.getRequestBodyText(userModel.getUser_phone());
-        RequestBody country_part = Common.getRequestBodyText(userModel.getId_country());
-        RequestBody address_part = Common.getRequestBodyText(userModel.getUser_address());
-        RequestBody city_part = Common.getRequestBodyText(userModel.getUser_city());
+        RequestBody country_part=null,address_part=null,city_part=null,specialization_part=null;
 
+        if (userModel.getUser_type().equals(Tags.USER_MEMBER))
+        {
+            country_part = Common.getRequestBodyText(userModel.getId_country());
+            address_part = Common.getRequestBodyText(userModel.getUser_address());
+
+            city_part = Common.getRequestBodyText(userModel.getUser_city());
+            specialization_part = Common.getRequestBodyText("");
+
+        }else if (userModel.getUser_type().equals(Tags.USER_TECHNICAL))
+        {
+            country_part = Common.getRequestBodyText("");
+            address_part = Common.getRequestBodyText("");
+            city_part = Common.getRequestBodyText("");
+            specialization_part = Common.getRequestBodyText(userModel.getUser_specialization_id_fk());
+
+        }
         final ProgressDialog progressDialog = Common.createProgressDialog(getActivity(),getString(R.string.updtng));
         progressDialog.show();
 
-        Api.getService().UpdateProfileData(userModel.getUser_id(),phone_part,country_part,email_part,name_part,city_part,address_part)
+        Api.getService().UpdateProfileData(userModel.getUser_id(),phone_part,country_part,email_part,name_part,city_part,address_part,specialization_part)
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
@@ -802,17 +867,33 @@ public class Fragment_Profile extends Fragment {
 
     private void update_specialization(String service_id)
     {
-       /* RequestBody name_part = Common.getRequestBodyText(userModel.getUser_full_name());
-        RequestBody email_part = Common.getRequestBodyText(newEmail);
+        RequestBody name_part = Common.getRequestBodyText(userModel.getUser_full_name());
+        RequestBody email_part = Common.getRequestBodyText(userModel.getUser_email());
         RequestBody phone_part = Common.getRequestBodyText(userModel.getUser_phone());
-        RequestBody country_part = Common.getRequestBodyText(userModel.getId_country());
-        RequestBody address_part = Common.getRequestBodyText(userModel.getUser_address());
-        RequestBody city_part = Common.getRequestBodyText(userModel.getUser_city());
+
+        RequestBody country_part=null,address_part=null,city_part=null,specialization_part=null;
+
+        if (userModel.getUser_type().equals(Tags.USER_MEMBER))
+        {
+            country_part = Common.getRequestBodyText(userModel.getId_country());
+            address_part = Common.getRequestBodyText(userModel.getUser_address());
+
+            city_part = Common.getRequestBodyText(userModel.getUser_city());
+            specialization_part = Common.getRequestBodyText("");
+
+        }else if (userModel.getUser_type().equals(Tags.USER_TECHNICAL))
+        {
+            country_part = Common.getRequestBodyText("");
+            address_part = Common.getRequestBodyText("");
+            city_part = Common.getRequestBodyText("");
+            specialization_part = Common.getRequestBodyText(service_id);
+
+        }
 
         final ProgressDialog progressDialog = Common.createProgressDialog(getActivity(),getString(R.string.updtng));
         progressDialog.show();
 
-        Api.getService().UpdateProfileData(userModel.getUser_id(),phone_part,country_part,email_part,name_part,city_part,address_part)
+        Api.getService().UpdateProfileData(userModel.getUser_id(),phone_part,country_part,email_part,name_part,city_part,address_part,specialization_part)
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
@@ -843,7 +924,7 @@ public class Fragment_Profile extends Fragment {
 
                         }catch (NullPointerException e){}
                     }
-                });*/
+                });
 
     }
     private void update_address(String address)
@@ -852,13 +933,27 @@ public class Fragment_Profile extends Fragment {
         RequestBody name_part = Common.getRequestBodyText(userModel.getUser_full_name());
         RequestBody email_part = Common.getRequestBodyText(userModel.getUser_email());
         RequestBody phone_part = Common.getRequestBodyText(userModel.getUser_phone());
-        RequestBody country_part = Common.getRequestBodyText(userModel.getId_country());
-        RequestBody address_part = Common.getRequestBodyText(address);
-        RequestBody city_part = Common.getRequestBodyText(userModel.getUser_city());
+        RequestBody country_part=null,address_part=null,city_part=null,specialization_part=null;
 
+        if (userModel.getUser_type().equals(Tags.USER_MEMBER))
+        {
+            country_part = Common.getRequestBodyText(userModel.getId_country());
+            address_part = Common.getRequestBodyText(address);
+
+            city_part = Common.getRequestBodyText(userModel.getUser_city());
+            specialization_part = Common.getRequestBodyText("");
+
+        }else if (userModel.getUser_type().equals(Tags.USER_TECHNICAL))
+        {
+            country_part = Common.getRequestBodyText("");
+            address_part = Common.getRequestBodyText("");
+            city_part = Common.getRequestBodyText("");
+            specialization_part = Common.getRequestBodyText(userModel.getUser_specialization_id_fk());
+
+        }
         final ProgressDialog progressDialog = Common.createProgressDialog(getActivity(),getString(R.string.updtng));
         progressDialog.show();
-        Api.getService().UpdateProfileData(userModel.getUser_id(),phone_part,country_part,email_part,name_part,city_part,address_part)
+        Api.getService().UpdateProfileData(userModel.getUser_id(),phone_part,country_part,email_part,name_part,city_part,address_part,specialization_part)
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {

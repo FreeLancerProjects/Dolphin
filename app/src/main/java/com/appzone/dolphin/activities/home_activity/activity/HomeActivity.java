@@ -255,6 +255,8 @@ public class HomeActivity extends AppCompatActivity
                                     canRead=false;
                                     if (response.body().getSuccess_read()==1)
                                     {
+                                        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                                        manager.cancelAll();
                                         if (fragment_home_container!=null)
                                         {
                                             fragment_home_container.UpdateNotificationCount(0);
@@ -385,6 +387,47 @@ public class HomeActivity extends AppCompatActivity
         lat = locationModel.getLat();
         lng = locationModel.getLng();
         UpdateLocation(locationModel);
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void ListenToNotification(NotificationCountModel notificationCountModel)
+    {
+        if (fragment_notifications!=null)
+        {
+            if (fragment_notifications.isAdded())
+            {
+                if (fragment_notifications.isVisible())
+                {
+                    Log.e("23","11111");
+                    ReadNotification();
+                    if (userModel.getUser_type().equals(Tags.USER_MEMBER))
+                    {
+                        fragment_notifications.getClientNotification(userModel.getUser_id());
+                    }else if (userModel.getUser_type().equals(Tags.USER_TECHNICAL))
+                    {
+                        fragment_notifications.getTechnicalNotification(userModel.getUser_id());
+                    }
+                }else
+                    {
+                        canRead=true;
+                        getUnReadNotificationCount(userModel.getUser_id());
+                        if (userModel.getUser_type().equals(Tags.USER_MEMBER))
+                        {
+                            fragment_notifications.getClientNotification(userModel.getUser_id());
+                        }else if (userModel.getUser_type().equals(Tags.USER_TECHNICAL))
+                        {
+                            fragment_notifications.getTechnicalNotification(userModel.getUser_id());
+                        }
+                    }
+            }else
+                {
+                    canRead=true;
+                    getUnReadNotificationCount(userModel.getUser_id());
+                }
+        }else
+            {
+                canRead=true;
+                getUnReadNotificationCount(userModel.getUser_id());
+            }
     }
     private void UpdateLocation(LocationModel locationModel)
     {
@@ -623,6 +666,13 @@ public class HomeActivity extends AppCompatActivity
 
         }else
         {
+            new Handler()
+                    .postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            navigationView.getMenu().getItem(0).setChecked(true);
+                        }
+                    },500);
             Display_FragmentHome_Container();
             lastSelectNavItem =3;
             fragment_home_container.setSelectedItem(3);
@@ -659,6 +709,7 @@ public class HomeActivity extends AppCompatActivity
                 fragmentManager.beginTransaction().add(R.id.fragment_home_container,fragment_notifications,"fragment_notifications").addToBackStack("fragment_notifications").commit();
 
             }
+
         }
     }
     public void Display_FragmentMyOrder()
@@ -755,6 +806,23 @@ public class HomeActivity extends AppCompatActivity
 
         }
     }
+
+    public void UpdateTechnicalCurrentNotification()
+    {
+        if (fragment_myOrders!=null&&fragment_myOrders.isAdded())
+        {
+            fragment_myOrders.UpdateTechnicalCurrentOrder();
+        }
+
+
+    }
+    public void UpdateTechnicalPreviousNotification()
+    {
+        if (fragment_myOrders!=null&&fragment_myOrders.isAdded())
+        {
+            fragment_myOrders.UpdateTechnicalPreviousOrder();
+        }
+    }
     public void Display_FragmentTermsCondition()
     {
         if (fragment_terms_condition==null)
@@ -838,6 +906,7 @@ public class HomeActivity extends AppCompatActivity
                                         userModel = null;
                                         userSingleTone.ClearUserModel();
                                         preferences.ClearData(HomeActivity.this);
+                                        fragmentManager.popBackStack("fragment_home_container",FragmentManager.POP_BACK_STACK_INCLUSIVE);
                                         Intent intent = new Intent(HomeActivity.this, SignInActivity.class);
                                         startActivity(intent);
                                         finish();

@@ -74,8 +74,8 @@ public class LocationUpdateService extends Service implements GoogleApiClient.On
     private void initLocationRequest() {
         locationRequest = new LocationRequest();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(6000);
-        locationRequest.setFastestInterval(6000);
+        locationRequest.setInterval(1000*5*60);
+        locationRequest.setFastestInterval(1000*5*60);
     }
 
     @Override

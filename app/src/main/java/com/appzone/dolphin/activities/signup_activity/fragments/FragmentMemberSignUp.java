@@ -352,7 +352,7 @@ public class FragmentMemberSignUp extends Fragment{
                                 getActivity().finish();
                             }else if (response.body().getSuccess_signup()==2)
                             {
-
+                                Toast.makeText(getActivity(), R.string.ph_em, Toast.LENGTH_SHORT).show();
                             }else
                                 {
                                     Toast.makeText(getActivity(),R.string.something, Toast.LENGTH_SHORT).show();

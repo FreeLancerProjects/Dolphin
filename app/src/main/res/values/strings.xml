@@ -154,6 +154,14 @@
     <string name="newpass_req">New password  is required</string>
     <string name="wrong_oldpass">Incorrect old password</string>
     <string name="per_den">Access photo permission denied</string>
+    <string name="uphone_exist">User phone is exist</string>
+    <string name="confirm_reservation">Confirm reservation</string>
+    <string name="admin">Admin</string>
+    <string name="work_schedules">Work schedules distributed</string>
+    <string name="confirm_technical_arrive">Confirm technical arrive</string>
+    <string name="Finished_add_evaluation">Finished add evaluation</string>
+    <string name="Evaluation_official">Evaluation of official quality</string>
+    <string name="no_user_phone">There are no users have this phone</string>
     <string-array name="payment">
         <item>Choose</item>
         <item>Cash</item>

@@ -122,6 +122,9 @@ public class Fragment_ContactUs extends Fragment {
                             {
                                 dialog.dismiss();
                                 edt_message.setText(null);
+                                edt_name.setText(null);
+                                edt_phone.setText(null);
+                                Toast.makeText(getActivity(),R.string.succ, Toast.LENGTH_SHORT).show();
 
                             }else
                                 {
