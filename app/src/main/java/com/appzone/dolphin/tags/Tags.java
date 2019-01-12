@@ -1,7 +1,7 @@
 package com.appzone.dolphin.tags;
 
 public class Tags {
-    public static final String BASE_URL="http://dolphin.devoloper.xyz/";
+    public static final String BASE_URL="http://dolphin-ksa.com/";
     public static final String IMAGE_PATH=BASE_URL+"uploads/images/";
     public static final String VOICE_PATH=BASE_URL+"uploads/files/";
     public static final String VIDEO_PATH=BASE_URL+"uploads/files/";
